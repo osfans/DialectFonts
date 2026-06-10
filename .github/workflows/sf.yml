@@ -1,0 +1,27 @@
+name: Commit
+
+on: [push]
+
+env:
+  CI_NAME: Commit CI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.x"
+
+    - name: Generate Fonts
+      run: |
+        python -m pip install fonttools brotli
+        python make.py
+
+    - name: Deploy to SF
+      run: |
+        sshpass -p '${{ secrets.SF_PASSWORD }}' scp -o StrictHostKeyChecking=no -r docs/* ${{ secrets.SF_USERNAME }}@web.sourceforge.net:/home/project-web/dialectfonts/htdocs
