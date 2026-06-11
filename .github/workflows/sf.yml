@@ -25,3 +25,5 @@ jobs:
     - name: Deploy to SF
       run: |
         sshpass -p '${{ secrets.SF_PASSWORD }}' scp -o StrictHostKeyChecking=no -r docs/* ${{ secrets.SF_USERNAME }}@web.sourceforge.net:/home/project-web/dialectfonts/htdocs
+        sshpass -p '${{ secrets.SF_PASSWORD }}' scp -o StrictHostKeyChecking=no -r docs/*.woff2 ${{ secrets.SF_USERNAME }}@web.sourceforge.net:/home/project-web/jianghuaidict/htdocs
+        sshpass -p '${{ secrets.SF_PASSWORD }}' scp -o StrictHostKeyChecking=no -r docs/*.woff2 ${{ secrets.SF_USERNAME }}@web.sourceforge.net:/home/project-web/taerv/htdocs
